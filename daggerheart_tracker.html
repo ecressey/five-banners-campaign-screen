@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -285,7 +285,30 @@
     .form-input-name { width: 100%; }
     .form-row { flex-direction: column; }
   }
-</style>
+
+  /* NPC GENERATOR */
+  .npc-section { margin-bottom: 2rem; }
+  .npc-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .npc-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
+    padding: 10px 14px; display: flex; align-items: flex-start; gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .npc-card:hover { border-color: var(--border-hover); }
+  .npc-card-body { flex: 1; min-width: 0; }
+  .npc-name-line { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+  .npc-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--gold); }
+  .npc-ancestry { font-size: 11px; color: var(--text-muted); font-style: italic; }
+  .npc-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+  .npc-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .npc-section-header .section-label { margin-bottom: 0; flex: 1; }
+  .npc-clear-btn {
+    font-family: var(--font-display); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 2px;
+    border: 1px solid rgba(180,150,90,0.15); background: none;
+    color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+  }
+  .npc-clear-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); }</style>
 </head>
 <body>
 <div class="app">
@@ -353,6 +376,17 @@
     </button>
   </div>
 
+  <!-- NPC GENERATOR -->
+  <div class="npc-section">
+    <div class="npc-section-header">
+      <div class="section-label">Quick NPCs</div>
+      <button class="npc-clear-btn" id="npcClearBtn" onclick="clearNpcs()" style="display:none">Clear all</button>
+    </div>
+    <div class="npc-list" id="npcList"></div>
+    <button class="new-countdown-trigger" onclick="generateNpc()">
+      <span class="plus">&#9820;</span> Generate NPC
+    </button>
+  </div>
   <footer>
     <span id="lastSaved">State saved locally</span>
     <button class="reset-btn" onclick="confirmReset()">Reset all</button>
@@ -703,7 +737,76 @@ function init() {
   renderCountdowns();
 }
 
+// NPC GENERATOR
+const NPC = {
+  firstNames: ['Aldric','Maren','Soren','Vex','Talia','Brennan','Elara','Gorm','Wren','Caius','Sera','Thane','Nyx','Oswin','Lyra','Darro','Ilessa','Brak','Vesper','Finn','Calla','Roryn','Mira','Torben','Ashel','Quellis','Daven','Siris','Lorn','Petra','Zael','Hadwin','Orin','Fess','Cyndra','Maeus','Brix','Corvus','Yennis','Thessa','Brael','Corin','Vira','Harwick','Losse','Dagna','Emrik','Sable','Pyra','Kael'],
+  lastNames: ['Ashwood','Coldwater','Ironmoor','Saltwick','Greaves','Hollow','Vane','Morrow','Dunwick','Brace','Farrow','Helm','Stoneback','Crowe','Marsh','Tallow','Ward','Pike','Kells','Thorne','Dusk','Gallow','Wend','Harker','Rime','Crane','Aldgate','Fogg','Brinn','Westing'],
+  ancestries: ['Human','Elf','Dwarf','Halfling','Orc','Goblin','Faun','Infernis','Galapa','Katari','Firbolg','Clank','Ribbet','Simian'],
+  physique: ['slight','stocky and broad-shouldered','tall and lean','short and heavyset','lanky','compact and muscular','tall and willowy','of average build','wiry','heavyset and weathered'],
+  hair: ['close-cropped black hair','long auburn braids','wild red hair','neatly combed brown hair','a shaved head','silver hair worn long','dark wavy hair','blond hair tied back','iron-grey hair, thinning','white hair cropped short','dirty blond hair in a loose braid','black hair shaved on the sides','chestnut hair, perpetually disheveled','red hair cropped close','long silver-streaked dark hair','coarse black hair pulled back'],
+  eyes: ['amber eyes','dark brown eyes','pale grey eyes','sharp green eyes','bright blue eyes','hazel eyes','gold-flecked brown eyes','deep-set dark eyes','grey eyes with a distant look','mismatched eyes - one brown, one green'],
+  features: [
+    'A long scar across one cheek.',
+    'Ink-stained fingers.',
+    'A broken and poorly re-set nose.',
+    'Hands thick with calluses.',
+    'A missing earlobe.',
+    'An elaborate tattoo visible at the collar.',
+    'One clouded, milky eye.',
+    'A faded brand on their wrist.',
+    'Two missing fingers on the right hand.',
+    'A distinctive limp.',
+    'Restless, watchful eyes.',
+    'Clothes slightly too fine for their manner.',
+    'A voice unexpectedly deep.',
+    'Teeth filed to subtle points.',
+    'A habit of standing very still.',
+    'A persistent smell of woodsmoke.',
+    'Knuckles scarred from old fights.',
+    'A small religious symbol worn openly.',
+    'An accent impossible to place.',
+    'An air of quiet, unsettling authority.',
+  ]
+};
+
+function npcPick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function generateNpc() {
+  const name = npcPick(NPC.firstNames) + ' ' + npcPick(NPC.lastNames);
+  const ancestry = npcPick(NPC.ancestries);
+  const desc = 'A ' + npcPick(NPC.physique) + ' ' + ancestry.toLowerCase() + ' with ' + npcPick(NPC.hair) + ' and ' + npcPick(NPC.eyes) + '. ' + npcPick(NPC.features);
+  const id = 'npc_' + Date.now();
+  const list = document.getElementById('npcList');
+  const card = document.createElement('div');
+  card.className = 'npc-card';
+  card.id = id;
+  card.innerHTML =
+    '<div class="npc-card-body">' +
+      '<div class="npc-name-line">' +
+        '<span class="npc-name">' + name + '</span>' +
+        '<span class="npc-ancestry">' + ancestry + '</span>' +
+      '</div>' +
+      '<div class="npc-desc">' + desc + '</div>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="removeNpc(\''+id+'\')" title="Remove">&#215;</button>';
+  list.prepend(card);
+  document.getElementById('npcClearBtn').style.display = 'inline-flex';
+}
+
+function removeNpc(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+  if (document.getElementById('npcList').children.length === 0) {
+    document.getElementById('npcClearBtn').style.display = 'none';
+  }
+}
+
+function clearNpcs() {
+  document.getElementById('npcList').innerHTML = '';
+  document.getElementById('npcClearBtn').style.display = 'none';
+}
 init();
 </script>
 </body>
 </html>
+
