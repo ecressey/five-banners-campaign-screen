@@ -738,43 +738,250 @@ function init() {
 }
 
 // NPC GENERATOR
-const NPC = {
-  firstNames: ['Aldric','Maren','Soren','Vex','Talia','Brennan','Elara','Gorm','Wren','Caius','Sera','Thane','Nyx','Oswin','Lyra','Darro','Ilessa','Brak','Vesper','Finn','Calla','Roryn','Mira','Torben','Ashel','Quellis','Daven','Siris','Lorn','Petra','Zael','Hadwin','Orin','Fess','Cyndra','Maeus','Brix','Corvus','Yennis','Thessa','Brael','Corin','Vira','Harwick','Losse','Dagna','Emrik','Sable','Pyra','Kael'],
-  lastNames: ['Ashwood','Coldwater','Ironmoor','Saltwick','Greaves','Hollow','Vane','Morrow','Dunwick','Brace','Farrow','Helm','Stoneback','Crowe','Marsh','Tallow','Ward','Pike','Kells','Thorne','Dusk','Gallow','Wend','Harker','Rime','Crane','Aldgate','Fogg','Brinn','Westing'],
-  ancestries: ['Human','Elf','Dwarf','Halfling','Orc','Goblin','Faun','Infernis','Galapa','Katari','Firbolg','Clank','Ribbet','Simian'],
-  physique: ['slight','stocky and broad-shouldered','tall and lean','short and heavyset','lanky','compact and muscular','tall and willowy','of average build','wiry','heavyset and weathered'],
-  hair: ['close-cropped black hair','long auburn braids','wild red hair','neatly combed brown hair','a shaved head','silver hair worn long','dark wavy hair','blond hair tied back','iron-grey hair, thinning','white hair cropped short','dirty blond hair in a loose braid','black hair shaved on the sides','chestnut hair, perpetually disheveled','red hair cropped close','long silver-streaked dark hair','coarse black hair pulled back'],
-  eyes: ['amber eyes','dark brown eyes','pale grey eyes','sharp green eyes','bright blue eyes','hazel eyes','gold-flecked brown eyes','deep-set dark eyes','grey eyes with a distant look','mismatched eyes - one brown, one green'],
-  features: [
-    'A long scar across one cheek.',
-    'Ink-stained fingers.',
-    'A broken and poorly re-set nose.',
-    'Hands thick with calluses.',
-    'A missing earlobe.',
-    'An elaborate tattoo visible at the collar.',
-    'One clouded, milky eye.',
-    'A faded brand on their wrist.',
-    'Two missing fingers on the right hand.',
-    'A distinctive limp.',
-    'Restless, watchful eyes.',
-    'Clothes slightly too fine for their manner.',
-    'A voice unexpectedly deep.',
-    'Teeth filed to subtle points.',
-    'A habit of standing very still.',
-    'A persistent smell of woodsmoke.',
-    'Knuckles scarred from old fights.',
-    'A small religious symbol worn openly.',
-    'An accent impossible to place.',
-    'An air of quiet, unsettling authority.',
-  ]
+const NPC_ANCESTRIES = [
+  {
+    name: 'Human',
+    builds: ['slight','stocky','tall and lean','short','lanky','broad-shouldered','heavyset','wiry','of average build','compact'],
+    looks: [
+      'with close-cropped black hair and sharp brown eyes',
+      'with long auburn hair and pale blue eyes',
+      'with silver-streaked dark hair and a weathered, lined face',
+      'with blond hair tied back and grey eyes',
+      'with wild red hair and freckled skin',
+      'with neat dark braids and amber eyes',
+      'with a shaved head and deep-set brown eyes',
+      'with iron-grey hair, thinning, and a permanent squint',
+      'with chestnut hair and a sun-darkened complexion',
+      'with white hair cropped short and pale green eyes',
+      'with dark curly hair and warm brown eyes',
+      'with long black hair and sharp hazel eyes',
+    ]
+  },
+  {
+    name: 'Elf',
+    builds: ['slender','lithe','willowy','lean and angular','tall and spare','slight'],
+    looks: [
+      'with long silver hair and violet eyes, ears tapered to fine points',
+      'with close-cropped white hair and gold eyes, features eerily ageless',
+      'with auburn hair worn loose and pale grey eyes, pointed ears half-hidden beneath it',
+      'with dark braided hair and amber eyes that catch the light strangely',
+      'with black hair and silver eyes, cheekbones sharp enough to cut glass',
+      'with pale blond hair and green eyes that rarely blink',
+      'with copper-red hair and deep amber eyes, ears visibly pointed',
+      'with long white-silver hair and mismatched eyes — one blue, one gold',
+    ]
+  },
+  {
+    name: 'Dwarf',
+    builds: ['stocky and broad','barrel-chested','short and powerful','heavyset','compact and solid'],
+    looks: [
+      'with an elaborate braided beard and hard grey eyes',
+      'with close-cropped red hair and a thick beard, ruddy-cheeked',
+      'with a long black braid threaded with iron rings',
+      'with a braided auburn beard and deep-set brown eyes',
+      'with silver hair cropped close and a short, dense beard',
+      'with a shaved head and a thick beard, scars on both cheeks',
+      'with dark braided hair and a beard split into two plaits',
+    ]
+  },
+  {
+    name: 'Halfling',
+    builds: ['small and nimble','slight and quick','compact','short and round-faced'],
+    looks: [
+      'with a mop of curly brown hair and bright hazel eyes',
+      'with tightly curled black hair and warm brown eyes, cheeks perpetually rosy',
+      'with blond ringlets and sharp blue eyes that miss very little',
+      'with red curly hair and a scattering of freckles across their nose',
+      'with neat dark curls and amber eyes set in a surprisingly expressive face',
+      'with grey-touched brown hair and laugh lines already forming',
+    ]
+  },
+  {
+    name: 'Orc',
+    builds: ['broad and powerfully built','massively built','tall and muscular','stocky and imposing','wide-shouldered'],
+    looks: [
+      'with grey-green skin, dark hair cropped short, and lower tusks worn smooth',
+      'with deep green skin, coarse black hair in a topknot, and prominent lower tusks',
+      'with mottled grey skin and tusks banded with copper wire',
+      'with dark grey skin, long black hair, and yellowed tusks',
+      'with olive-green skin, a shaved head, and small but sharp lower tusks',
+      'with greenish-brown skin and tusks carved with small markings',
+    ]
+  },
+  {
+    name: 'Goblin',
+    builds: ['small and wiry','slight and quick','compact','small and hunched','short but surprisingly strong'],
+    looks: [
+      'with large yellow eyes, sharp small teeth, and mottled green skin',
+      'with wide amber eyes and yellow-brown skin that shifts in different light',
+      'with enormous dark eyes and greenish skin pulled tight over sharp features',
+      'with bulging pale eyes and a wide mouth full of needle teeth',
+      'with bright copper eyes, large pointed ears, and patchy green-brown skin',
+    ]
+  },
+  {
+    name: 'Faun',
+    builds: ['lean and sure-footed','compact','lithe','wiry above the waist'],
+    looks: [
+      'with small curved horns, a human upper body, and shaggy goat legs ending in dark hooves',
+      'with long spiral horns, auburn hair, and dappled brown-and-white legs',
+      'with short nubs of horns, dark curly hair, and jet-black hooves',
+      'with broad flat horns and spotted legs, standing very still',
+      'with twisted ram horns and a coat of short tawny fur from the waist down',
+    ]
+  },
+  {
+    name: 'Ribbet',
+    builds: ['squat and broad','compact and quick','slight','heavyset'],
+    looks: [
+      'with smooth mottled green skin, wide golden eyes, and a broad flat mouth',
+      'with damp dark skin patterned in brown and black, and enormous dark eyes',
+      'with pale jade-green skin and wide amber eyes that swivel independently',
+      'with bumpy olive skin, a white throat that pulses faintly, and black eyes',
+      'with bright emerald skin and bulging copper eyes that miss little',
+    ]
+  },
+  {
+    name: 'Clank',
+    builds: ['solid and angular','broad and heavy','compact','tall and jointed','light and hollow-sounding'],
+    looks: [
+      'constructed from dark iron, with glass eyes that glow a dim amber',
+      'built from pale birchwood and copper fittings, with soft blue light behind the eyes',
+      'assembled from mismatched bronze plates, visibly repaired many times over',
+      'made of dark steel, face a smooth expressionless mask with white eye-lenses',
+      'built from brass and polished bone, surprisingly graceful in movement',
+      'constructed from iron and clockwork, one eye ticking faintly',
+    ]
+  },
+  {
+    name: 'Fungril',
+    builds: ['compact','slight and slow-moving','squat','broad'],
+    looks: [
+      'with a broad cream-colored mushroom cap and skin dusted with pale spores',
+      'with a deep red cap spotted white and bioluminescent patches at the joints',
+      'with a dark brown cap and skin that releases a faint sweet scent when warm',
+      'with a flat grey cap and faintly glowing blue veins tracing the forearms',
+      'with an ink-black cap and skin covered in tiny nodules that pulse gently',
+    ]
+  },
+  {
+    name: 'Infernis',
+    builds: ['lean','lithe','compact','tall and angular','broad-shouldered'],
+    looks: [
+      'with short black horns, deep red skin, and a long thin tail that moves on its own',
+      'with swept-back ivory horns, violet skin, and slitted amber eyes',
+      'with curled ram horns, copper-brown skin, and a tail tipped with a tuft of dark hair',
+      'with small ridged horns, deep purple skin, and eyes that glow faintly orange',
+      'with forward-curving horns, rust-red skin, and a pointed tail curled at rest',
+      'with asymmetrical horns — one snapped short — and pale grey skin with a reddish cast',
+    ]
+  },
+  {
+    name: 'Galapa',
+    builds: ['broad and slow-moving','heavy-shelled','stocky','compact beneath the shell'],
+    looks: [
+      'with a dark patterned shell, scaled olive skin, and deep unhurried brown eyes',
+      'with a mossy shell, grey-green scales, and wise amber eyes',
+      'with a smooth dark shell edged in gold and pale yellow-green scales',
+      'with a heavily ridged shell and leathery brown skin, eyes set deep in the face',
+      'with a pale shell streaked brown and black, and slow blinking dark eyes',
+    ]
+  },
+  {
+    name: 'Katari',
+    builds: ['lean and agile','compact and muscular','lithe','sleek','wiry'],
+    looks: [
+      'with tawny striped fur, a lashing tail, and slit-pupil amber eyes',
+      'with black fur and sharp green eyes, ears flat and attentive',
+      'with grey tabby markings, white chest fur, and bright yellow eyes',
+      'with russet fur spotted dark and a tail carried low',
+      'with pale cream fur and brown points, ice-blue eyes',
+      'with dark tortoiseshell coloring and unblinking copper eyes',
+    ]
+  },
+  {
+    name: 'Simian',
+    builds: ['powerfully built','long-armed and broad','stocky','barrel-chested','compact and dense'],
+    looks: [
+      'with dark brown fur, long arms that nearly brush the ground, and deep-set brown eyes',
+      'with grey fur streaked silver, a broad expressive face, and watchful dark eyes',
+      'with rust-red fur and a black face, moving with deceptive ease',
+      'with black fur and large amber eyes, surprisingly quiet on their feet',
+      'with patchy brown-and-grey fur and a deeply expressive, scarred face',
+    ]
+  },
+  {
+    name: 'Firbolg',
+    builds: ['very tall and broad','towering','massive and quiet-footed','enormous but gentle-seeming'],
+    looks: [
+      'with mossy green-tinged hair, bark-textured patches on the arms, and deep earth-brown eyes',
+      'with pale grey hair like birch bark and eyes the color of a winter sky',
+      'with dark hair threaded with living moss and enormous hands roughened like old wood',
+      'with long reddish-brown hair and skin dappled like light through leaves',
+      'with white hair and pale blue eyes, faintly luminescent in dim light',
+    ]
+  },
+];
+
+const NPC_NAMES = {
+  first: ['Aldric','Brennan','Caius','Corvus','Dagna','Darro','Daven','Elara','Emrik','Eris','Fenn','Finn','Gorm','Hadwin','Ilessa','Kael','Lorn','Lyra','Maeus','Maren','Mira','Morwen','Nyx','Orin','Oswin','Petra','Pyra','Quellis','Riordan','Roryn','Sable','Sera','Siris','Soren','Talia','Thane','Thessa','Torben','Vex','Vesper','Vira','Wren','Yennis','Zael','Ashel','Brak','Brael','Calla','Cyndra','Corin'],
+  last: ['Ashwood','Aldgate','Brace','Brinn','Coldwater','Crowe','Dusk','Dunwick','Farrow','Fogg','Gallow','Greaves','Harker','Harwick','Helm','Hollow','Ironmoor','Kells','Losse','Marsh','Morrow','Pike','Rime','Saltwick','Stoneback','Tallow','Thorne','Vane','Wend','Westing','Ward','Crane','Kesslar','Dunmore','Ashfen','Irongate','Voss','Renn','Halfmoor','Orvyn']
 };
+
+const NPC_FACTIONS = [
+  'Voldean','Armada','Polaris','Jesthaen','Hilltop',
+  'Unaffiliated','Unaffiliated','Unaffiliated','Wanderer','Wanderer'
+];
+
+const NPC_ROLES = [
+  'Merchant','Soldier','Scholar','Healer','Laborer','Sailor','Priest',
+  'Drifter','Diplomat','Guard','Entertainer','Blacksmith','Herbalist',
+  'Scribe','Hunter','Spy','Criminal','Farmer','Courier','Innkeeper'
+];
+
+const NPC_FEATURES = [
+  'A long scar across one cheek.',
+  'Ink-stained fingers.',
+  'A broken and poorly re-set nose.',
+  'Hands thick with calluses.',
+  'A missing earlobe.',
+  'An elaborate tattoo visible at the collar.',
+  'One clouded, milky eye.',
+  'A faded brand on the wrist.',
+  'Two missing fingers on the right hand.',
+  'A distinctive limp.',
+  'Restless, watchful eyes.',
+  'Clothes slightly too fine for their manner.',
+  'A voice unexpectedly deep.',
+  'A habit of standing very still.',
+  'A persistent smell of woodsmoke.',
+  'Knuckles scarred from old fights.',
+  'A small religious symbol worn openly.',
+  'An accent impossible to place.',
+  'An air of quiet, unsettling authority.',
+  'A nervous habit of checking over their shoulder.',
+  'A laugh that does not quite reach their eyes.',
+  'Fingernails bitten to nothing.',
+  'A faint smell of herbs and something metallic.',
+  'Eyes that linger a beat too long on exits.',
+];
 
 function npcPick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function generateNpc() {
-  const name = npcPick(NPC.firstNames) + ' ' + npcPick(NPC.lastNames);
-  const ancestry = npcPick(NPC.ancestries);
-  const desc = 'A ' + npcPick(NPC.physique) + ' ' + ancestry.toLowerCase() + ' with ' + npcPick(NPC.hair) + ' and ' + npcPick(NPC.eyes) + '. ' + npcPick(NPC.features);
+  const ancestry = npcPick(NPC_ANCESTRIES);
+  const name = npcPick(NPC_NAMES.first) + ' ' + npcPick(NPC_NAMES.last);
+  const build = npcPick(ancestry.builds);
+  const look = npcPick(ancestry.looks);
+  const feature = npcPick(NPC_FEATURES);
+  const faction = npcPick(NPC_FACTIONS);
+  const role = npcPick(NPC_ROLES);
+
+  const isClank = ancestry.name === 'Clank';
+  const desc = isClank
+    ? ('This ' + ancestry.name.toLowerCase() + ' is ' + build + ', ' + look + '. ' + feature)
+    : ('A ' + build + ' ' + ancestry.name.toLowerCase() + ', ' + look + '. ' + feature);
+
   const id = 'npc_' + Date.now();
   const list = document.getElementById('npcList');
   const card = document.createElement('div');
@@ -784,9 +991,10 @@ function generateNpc() {
     '<div class="npc-card-body">' +
       '<div class="npc-name-line">' +
         '<span class="npc-name">' + name + '</span>' +
-        '<span class="npc-ancestry">' + ancestry + '</span>' +
+        '<span class="npc-ancestry">' + ancestry.name + '</span>' +
       '</div>' +
       '<div class="npc-desc">' + desc + '</div>' +
+      '<div class="npc-hint">' + faction + ' &middot; ' + role + '</div>' +
     '</div>' +
     '<button class="delete-btn" onclick="removeNpc(\''+id+'\')" title="Remove">&#215;</button>';
   list.prepend(card);
@@ -809,4 +1017,5 @@ init();
 </script>
 </body>
 </html>
+
 
