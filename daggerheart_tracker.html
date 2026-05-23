@@ -44,7 +44,7 @@
       radial-gradient(ellipse at 80% 100%, rgba(80,40,120,0.05) 0%, transparent 60%);
   }
 
-  .app { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .app { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
   header {
     margin-bottom: 2.5rem;
@@ -308,7 +308,15 @@
     border: 1px solid rgba(180,150,90,0.15); background: none;
     color: var(--text-muted); cursor: pointer; transition: all 0.15s;
   }
-  .npc-clear-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); }</style>
+  .npc-clear-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); }
+  /* TWO-COLUMN LAYOUT */
+  .main-columns { display: flex; gap: 2rem; align-items: flex-start; }
+  .col-left { flex: 11; min-width: 0; }
+  .col-right { flex: 9; min-width: 0; }
+  @media (max-width: 900px) {
+    .main-columns { flex-direction: column; }
+  }
+</style>
 </head>
 <body>
 <div class="app">
@@ -337,13 +345,13 @@
     </div>
   </div>
 
-  <!-- FACTIONS -->
+  <div class="main-columns"><div class="col-left"><!-- FACTIONS -->
   <div class="factions-section">
     <div class="section-label">Faction Countdowns</div>
     <div class="factions-list" id="factionsList"></div>
   </div>
 
-  <!-- SESSION COUNTDOWNS -->
+</div><div class="col-right"><!-- SESSION COUNTDOWNS -->
   <div class="countdowns-section">
     <div class="section-label">Session Countdowns</div>
     <div class="countdowns-list" id="countdownsList"></div>
@@ -387,6 +395,8 @@
       <span class="plus">&#9820;</span> Generate NPC
     </button>
   </div>
+  </div></div><!-- /col-right /main-columns -->
+
   <footer>
     <span id="lastSaved">State saved locally</span>
     <button class="reset-btn" onclick="confirmReset()">Reset all</button>
@@ -481,16 +491,15 @@ const FACTIONS = [
   {
     id: "evelyn", name: "Evelyn & the Faerie Realm", color: "#5a3ab0",
     steps: [
-      { n: 8, short: "Evelyn returns, weakened and healing", detail: "Evelyn returns to the Faerie realm, weakened from imprisonment. Begins healing and reconnecting with the realm's living network." },
-      { n: 7, short: "The three deities convene", detail: "Evelyn, Moroko, and Thistlewick convene. Moroko reports sacred sites going dark. Thistlewick brings cryptic intelligence from the mortal world." },
-      { n: 6, short: "Trapping ritual sequence researched", detail: "Evelyn begins researching and preparing the ritual sequence needed to trap the primordial powers. She knows how the gods originally did it." },
-      { n: 5, short: "Realm stabilized at the core", detail: "The realm shows instability — unpredictable portals, restless spirits. Evelyn stabilizes the core while the outer edges remain vulnerable." },
-      { n: 4, short: "Moroko patrols the borders", detail: "Moroko begins actively patrolling the borders between realms, hunting whatever is severing the sacred site connections." },
-      { n: 3, short: "Thistlewick's meddling produces something useful", detail: "Thistlewick's chaotic meddling in the mortal world accidentally produces something genuinely useful — a disruption to Hilltop's plans or an unexpected ally." },
-      { n: 2, short: "Primordial vessels identified", detail: "Evelyn identifies the mortal vessels through which the primordial powers are operating — the Duke, Sirela, and others." },
-      { n: 1, short: "Three deities unified — ritual ready", detail: "The three deities are unified in purpose. Evelyn is strong enough to attempt the trapping ritual — but needs help from the mortal side." },
-      { n: 0, short: "Primordial powers trapped — the realm restored", detail: "The primordial powers of chaos are trapped. The Faerie realm is restored to sanctuary. The demonic threat is broken — if the party has done their part." },
-    ]
+      { n: 8, short: "Evelyn returns to the Faerie realm, weakened — begins healing", detail: "Evelyn returns to the Faerie realm, weakened. Begins healing and reconnecting with the realm's living network." },
+      { n: 7, short: "The three deities convene — Thistlewick has been watching the party", detail: "The three deities convene. Moroko reports sacred sites going dark. Thistlewick brings intelligence from the mortal world — he's been watching the party and thinks they can be useful." },
+      { n: 6, short: "Evelyn identifies the three remaining primordial objects", detail: "Evelyn pieces together where the remaining objects are. She knows about the reliquary on Sirela, the sword with Han-Thak, and the crown on the Duke. She needs the party to destroy all three." },
+      { n: 5, short: "Evelyn makes contact — tells the party the full truth about the objects", detail: "Evelyn makes contact with the party — directly or through Thistlewick — and tells them the full truth about the objects. What they are, what destroying them does, and what happens if they don't." },
+      { n: 4, short: "Moroko disrupts Sirela's operations from the Faerie side — buying time", detail: "Moroko begins actively disrupting Sirela's operations from the Faerie side — slowing her ability to perform rituals, buying the party time." },
+      { n: 3, short: "Thistlewick's meddling produces something useful", detail: "Thistlewick's meddling in the mortal world produces something useful — unexpected intelligence, a disruption to Hilltop's plans, or an unlikely ally delivered to the party at just the right moment." },
+      { n: 2, short: "Evelyn strong enough to support the party directly", detail: "Evelyn is strong enough to support the party directly if they can get to the final object. She can't destroy the objects herself — she needs mortal hands — but she can shield, guide, and empower." },
+      { n: 1, short: "Two objects destroyed — Evelyn holds the realm together through sheer will", detail: "The party has destroyed two of the three remaining objects. One remains. Evelyn is holding the Faerie realm together through sheer will. She won't last much longer." },
+      { n: 0, short: "Final object destroyed — the primordial threat is broken", detail: "The final object is destroyed. The primordial threat is broken. The Faerie realm stabilizes. Evelyn survives — or doesn't, depending on how long it took." },    ]
   }
 ];
 
@@ -1098,6 +1107,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
