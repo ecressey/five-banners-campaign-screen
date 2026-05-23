@@ -44,11 +44,7 @@
       radial-gradient(ellipse at 80% 100%, rgba(80,40,120,0.05) 0%, transparent 60%);
   }
 
-  .app {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
+  .app { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
   header {
     margin-bottom: 2.5rem;
@@ -56,398 +52,228 @@
     border-bottom: 1px solid var(--border);
     position: relative;
   }
-
   header::after {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 80px;
-    height: 1px;
+    bottom: -1px; left: 0;
+    width: 80px; height: 1px;
     background: var(--gold);
     opacity: 0.6;
   }
-
   .header-eyebrow {
     font-family: var(--font-display);
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 6px;
+    font-size: 9px; letter-spacing: 0.25em;
+    color: var(--gold-dim); text-transform: uppercase; margin-bottom: 6px;
   }
-
-  h1 {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-  }
-
-  .header-sub {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-    font-style: italic;
-  }
+  h1 { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--gold); letter-spacing: 0.05em; }
+  .header-sub { font-size: 14px; color: var(--text-secondary); margin-top: 4px; font-style: italic; }
 
   .section-label {
     font-family: var(--font-display);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
+    font-size: 9px; letter-spacing: 0.2em;
+    color: var(--gold-dim); text-transform: uppercase;
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
   }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* FEAR TRACKER */
+  /* FEAR */
   .fear-section { margin-bottom: 2.5rem; }
-
   .fear-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
+    padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.5rem;
   }
-
   .fear-left { min-width: 100px; }
-
-  .fear-title {
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .fear-value-display {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-  }
-
-  .fear-number {
-    font-family: var(--font-display);
-    font-size: 36px;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    transition: color 0.3s;
-  }
-
+  .fear-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 0.12em; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 6px; }
+  .fear-value-display { display: flex; align-items: baseline; gap: 4px; }
+  .fear-number { font-family: var(--font-display); font-size: 36px; font-weight: 600; color: var(--gold); line-height: 1; transition: color 0.3s; }
   .fear-number.danger { color: var(--red-bright); }
-
-  .fear-denom {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  .fear-pips {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-  }
-
+  .fear-denom { font-size: 14px; color: var(--text-muted); }
+  .fear-pips { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   .fear-pip {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 20px; height: 20px; border-radius: 50%;
     border: 1px solid rgba(180,150,90,0.2);
     background: rgba(180,150,90,0.04);
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
-    position: relative;
+    cursor: pointer; transition: background 0.15s, border-color 0.15s, transform 0.1s;
   }
-
   .fear-pip:hover { transform: scale(1.15); border-color: rgba(180,150,90,0.5); }
   .fear-pip.filled { background: var(--fear-fill); border-color: #9b5dd4; }
   .fear-pip.danger-fill { background: var(--fear-danger); border-color: #c94040; }
-
-  .fear-pip-9 { border-color: rgba(200,60,60,0.3); }
-
-  .fear-btns {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
+  .fear-btns { display: flex; flex-direction: column; gap: 6px; }
   .ctrl-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 2px;
-    border: 1px solid var(--border);
-    background: rgba(180,150,90,0.05);
-    color: var(--gold);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    transition: background 0.1s, border-color 0.1s;
-    line-height: 1;
+    width: 32px; height: 32px; border-radius: 2px;
+    border: 1px solid var(--border); background: rgba(180,150,90,0.05);
+    color: var(--gold); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); transition: background 0.1s, border-color 0.1s; line-height: 1;
   }
-
   .ctrl-btn:hover { background: rgba(180,150,90,0.12); border-color: var(--gold-dim); }
   .ctrl-btn:active { transform: scale(0.95); }
 
-  /* FACTION CARDS */
-  .factions-section { }
+  /* FACTIONS */
+  .factions-section { margin-bottom: 2.5rem; }
   .factions-list { display: flex; flex-direction: column; gap: 8px; }
-
-  .faction-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
+  .faction-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
   .faction-card:hover { border-color: var(--border-hover); }
-
-  .faction-header {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .faction-sigil {
-    width: 5px;
-    align-self: stretch;
-    flex-shrink: 0;
-    transition: opacity 0.2s;
-  }
-
-  .faction-main {
-    flex: 1;
-    padding: 12px 14px;
-    min-width: 0;
-  }
-
-  .faction-name {
-    font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin-bottom: 3px;
-  }
-
-  .faction-short {
-    font-size: 13px;
-    color: var(--text-secondary);
-    font-style: italic;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.4;
-  }
-
-  .faction-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    flex-shrink: 0;
-  }
-
-  .step-counter {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .step-num-display {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-primary);
-    min-width: 22px;
-    text-align: center;
-    line-height: 1;
-  }
-
-  .step-of {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-    text-align: center;
-  }
-
+  .faction-header { display: flex; align-items: center; cursor: pointer; user-select: none; }
+  .faction-sigil { width: 5px; align-self: stretch; flex-shrink: 0; }
+  .faction-main { flex: 1; padding: 12px 14px; min-width: 0; }
+  .faction-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px; }
+  .faction-short { font-size: 13px; color: var(--text-secondary); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+  .faction-right { display: flex; align-items: center; gap: 10px; padding: 12px 14px; flex-shrink: 0; }
+  .step-counter { display: flex; align-items: center; gap: 8px; }
+  .step-num-display { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--text-primary); min-width: 22px; text-align: center; line-height: 1; }
+  .step-of { font-size: 11px; color: var(--text-muted); margin-top: 2px; text-align: center; }
   .step-ctrl {
-    width: 26px;
-    height: 26px;
-    border-radius: 2px;
-    border: 1px solid var(--border);
-    background: rgba(180,150,90,0.04);
-    color: var(--text-secondary);
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.1s;
-    flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 2px;
+    border: 1px solid var(--border); background: rgba(180,150,90,0.04);
+    color: var(--text-secondary); font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.1s; flex-shrink: 0;
   }
-
   .step-ctrl:hover { background: rgba(180,150,90,0.1); color: var(--gold); border-color: var(--gold-dim); }
   .step-ctrl:active { transform: scale(0.92); }
-
-  .expand-toggle {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 12px;
-    transition: transform 0.25s, color 0.15s;
-    flex-shrink: 0;
-  }
-
+  .expand-toggle { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 12px; transition: transform 0.25s, color 0.15s; flex-shrink: 0; }
   .expand-toggle.open { transform: rotate(180deg); color: var(--gold-dim); }
-
-  .progress-track {
-    height: 2px;
-    background: var(--progress-track);
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 2px;
-    transition: width 0.4s ease;
-    position: relative;
-  }
-
-  .progress-fill::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: -2px;
-    width: 4px;
-    height: 6px;
-    background: inherit;
-    border-radius: 1px;
-    opacity: 0.8;
-  }
-
-  .faction-detail {
-    display: none;
-    background: var(--bg-detail);
-    border-top: 1px solid var(--border);
-    padding: 14px 16px 16px;
-  }
-
+  .progress-track { height: 2px; background: var(--progress-track); }
+  .progress-fill { height: 2px; transition: width 0.4s ease; }
+  .faction-detail { display: none; background: var(--bg-detail); border-top: 1px solid var(--border); padding: 14px 16px 16px; }
   .faction-detail.open { display: block; }
-
   .steps-list { display: flex; flex-direction: column; gap: 2px; }
-
-  .step-row {
-    display: flex;
-    gap: 12px;
-    padding: 6px 10px;
-    border-radius: 3px;
-    transition: background 0.15s;
-    align-items: flex-start;
-  }
-
+  .step-row { display: flex; gap: 12px; padding: 6px 10px; border-radius: 3px; transition: background 0.15s; align-items: flex-start; }
   .step-row:hover { background: rgba(180,150,90,0.04); }
-
-  .step-row.current {
-    background: rgba(180,150,90,0.07);
-    border-left: 2px solid var(--gold-dim);
-    padding-left: 8px;
-  }
-
-  .step-n {
-    font-family: var(--font-display);
-    font-size: 11px;
-    color: var(--text-muted);
-    min-width: 16px;
-    flex-shrink: 0;
-    padding-top: 2px;
-  }
-
+  .step-row.current { background: rgba(180,150,90,0.07); border-left: 2px solid var(--gold-dim); padding-left: 8px; }
+  .step-n { font-family: var(--font-display); font-size: 11px; color: var(--text-muted); min-width: 16px; flex-shrink: 0; padding-top: 2px; }
   .step-row.current .step-n { color: var(--gold); }
-
-  .step-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-
+  .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
   .step-row.current .step-desc { color: var(--text-primary); }
+  .step-row.past .step-n, .step-row.past .step-desc { opacity: 0.35; text-decoration: line-through; text-decoration-color: var(--text-muted); }
 
-  .step-row.past .step-n,
-  .step-row.past .step-desc {
-    opacity: 0.35;
-    text-decoration: line-through;
-    text-decoration-color: var(--text-muted);
+  /* SESSION COUNTDOWNS */
+  .countdowns-section { margin-bottom: 2.5rem; }
+  .countdowns-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+  .countdown-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; gap: 0; overflow: hidden;
+    transition: border-color 0.2s;
   }
+  .countdown-card:hover { border-color: var(--border-hover); }
 
-  /* ENDGAME BADGE */
-  .endgame-badge {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-size: 8px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 2px 8px;
+  .countdown-accent { width: 5px; align-self: stretch; flex-shrink: 0; background: var(--gold-dim); opacity: 0.5; }
+
+  .countdown-main { flex: 1; padding: 10px 14px; min-width: 0; }
+  .countdown-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--text-primary); }
+
+  .countdown-pips { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+  .countdown-pip {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1px solid rgba(180,150,90,0.2);
+    background: rgba(180,150,90,0.06);
+    flex-shrink: 0;
+  }
+  .countdown-pip.filled { background: var(--gold-dim); border-color: var(--gold); }
+  .countdown-pip.empty-spent { background: rgba(180,150,90,0.03); border-color: rgba(180,150,90,0.1); }
+
+  .countdown-right { display: flex; align-items: center; gap: 8px; padding: 10px 14px; flex-shrink: 0; }
+  .countdown-value { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--text-primary); min-width: 22px; text-align: center; line-height: 1; }
+  .countdown-max { font-size: 11px; color: var(--text-muted); text-align: center; }
+
+  .delete-btn {
+    width: 24px; height: 24px; border-radius: 2px;
+    border: 1px solid transparent; background: none;
+    color: var(--text-muted); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; margin-left: 4px; line-height: 1;
+  }
+  .delete-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); background: rgba(139,42,42,0.15); }
+
+  /* NEW COUNTDOWN FORM */
+  .new-countdown-form {
+    background: var(--bg-card); border: 1px dashed rgba(180,150,90,0.2);
+    border-radius: 4px; padding: 14px 16px;
+    display: none;
+  }
+  .new-countdown-form.open { display: block; }
+
+  .form-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+
+  .form-input {
+    background: rgba(180,150,90,0.05);
+    border: 1px solid var(--border);
     border-radius: 2px;
-    margin-left: 8px;
-    vertical-align: middle;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 6px 10px;
+    outline: none;
+    transition: border-color 0.15s;
   }
+  .form-input:focus { border-color: var(--gold-dim); }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input-name { width: 260px; }
+  .form-input-steps { width: 70px; }
 
-  .endgame-badge.crisis { background: rgba(139,42,42,0.3); color: #e88; border: 1px solid rgba(200,60,60,0.3); }
-  .endgame-badge.victory { background: rgba(80,140,60,0.2); color: #8c8; border: 1px solid rgba(80,180,60,0.3); }
+  .form-btns { display: flex; gap: 8px; margin-top: 2px; }
+  .dice-row { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+  .dice-btn {
+    font-family: var(--font-display); font-size: 9px; letter-spacing: 0.08em;
+    padding: 4px 8px; border-radius: 2px;
+    border: 1px solid rgba(180,150,90,0.2); background: rgba(180,150,90,0.04);
+    color: var(--gold-dim); cursor: pointer; transition: all 0.15s;
+  }
+  .dice-btn:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(180,150,90,0.1); }
+  .dice-btn:active { transform: scale(0.92); }
+  .form-input.dice-flash { border-color: var(--gold); background: rgba(180,150,90,0.12); transition: none; }
+
+  .add-btn {
+    font-family: var(--font-display); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 7px 16px; border-radius: 2px;
+    border: 1px solid var(--gold-dim); background: rgba(180,150,90,0.08);
+    color: var(--gold); cursor: pointer; transition: all 0.15s;
+  }
+  .add-btn:hover { background: rgba(180,150,90,0.16); border-color: var(--gold); }
+
+  .cancel-btn {
+    font-family: var(--font-display); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 7px 14px; border-radius: 2px;
+    border: 1px solid var(--border); background: none;
+    color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+  }
+  .cancel-btn:hover { color: var(--text-secondary); border-color: var(--border-hover); }
+
+  .new-countdown-trigger {
+    font-family: var(--font-display); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 8px 16px; border-radius: 2px;
+    border: 1px dashed rgba(180,150,90,0.2); background: none;
+    color: var(--gold-dim); cursor: pointer; transition: all 0.2s;
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .new-countdown-trigger:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(180,150,90,0.04); }
+  .new-countdown-trigger .plus { font-size: 16px; line-height: 1; }
+
+  /* EMPTY STATE */
+  .empty-countdowns {
+    font-size: 13px; color: var(--text-muted); font-style: italic;
+    text-align: center; padding: 8px 0 4px;
+  }
 
   /* FOOTER */
   footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--text-muted);
-    font-style: italic;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted); font-style: italic;
+    display: flex; justify-content: space-between; align-items: center;
   }
-
   .reset-btn {
-    font-size: 11px;
-    font-family: var(--font-display);
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    background: none;
-    border: 1px solid rgba(180,150,90,0.1);
-    padding: 4px 12px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.15s;
+    font-size: 11px; font-family: var(--font-display); letter-spacing: 0.08em;
+    color: var(--text-muted); background: none;
+    border: 1px solid rgba(180,150,90,0.1); padding: 4px 12px; border-radius: 2px;
+    cursor: pointer; transition: all 0.15s;
   }
-
   .reset-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: rgba(180,150,90,0.2); border-radius: 3px; }
@@ -456,6 +282,8 @@
   @media (max-width: 500px) {
     .fear-card { flex-wrap: wrap; }
     .fear-pips { order: 3; width: 100%; }
+    .form-input-name { width: 100%; }
+    .form-row { flex-direction: column; }
   }
 </style>
 </head>
@@ -464,9 +292,10 @@
   <header>
     <div class="header-eyebrow">Campaign Tracker</div>
     <h1>Five Banners Burning</h1>
-    <div class="header-sub">Session reference — factions &amp; fear</div>
+    <div class="header-sub">Session reference — factions, countdowns &amp; fear</div>
   </header>
 
+  <!-- FEAR -->
   <div class="fear-section">
     <div class="section-label">Fear</div>
     <div class="fear-card">
@@ -485,9 +314,43 @@
     </div>
   </div>
 
+  <!-- FACTIONS -->
   <div class="factions-section">
     <div class="section-label">Faction Countdowns</div>
     <div class="factions-list" id="factionsList"></div>
+  </div>
+
+  <!-- SESSION COUNTDOWNS -->
+  <div class="countdowns-section">
+    <div class="section-label">Session Countdowns</div>
+    <div class="countdowns-list" id="countdownsList"></div>
+
+    <div class="new-countdown-form" id="newCountdownForm">
+      <div class="form-row">
+        <div class="form-group" style="flex:1">
+          <div class="form-label">Name</div>
+          <input class="form-input form-input-name" id="cdName" type="text" placeholder="e.g. Dragon awakens" maxlength="60" />
+        </div>
+        <div class="form-group">
+          <div class="form-label">Steps</div>
+          <input class="form-input form-input-steps" id="cdSteps" type="number" min="2" max="20" value="5" />
+          <div class="dice-row">
+            <button class="dice-btn" onclick="rollDice(4)" type="button">d4</button>
+            <button class="dice-btn" onclick="rollDice(6)" type="button">d6</button>
+            <button class="dice-btn" onclick="rollDice(8)" type="button">d8</button>
+            <button class="dice-btn" onclick="rollDice(10)" type="button">d10</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-btns" style="margin-top:12px">
+        <button class="add-btn" onclick="addCountdown()">Add</button>
+        <button class="cancel-btn" onclick="hideForm()">Cancel</button>
+      </div>
+    </div>
+
+    <button class="new-countdown-trigger" id="newCountdownTrigger" onclick="showForm()">
+      <span class="plus">+</span> New countdown
+    </button>
   </div>
 
   <footer>
@@ -499,11 +362,7 @@
 <script>
 const FACTIONS = [
   {
-    id: "voldean",
-    name: "Voldean",
-    color: "#3a7abf",
-    endgame: "victory",
-    endgameLabel: "Reborn",
+    id: "voldean", name: "Voldean", color: "#3a7abf",
     steps: [
       { n: 8, short: "Fake King installed, shadow government begins", detail: "The Fake King is installed. Aldurin, Eris, and Fordo begin governing behind the scenes." },
       { n: 7, short: "Aldurin stress-tests the Fake King", detail: "Aldurin runs the Fake King through increasingly complex political situations to assess long-term viability." },
@@ -517,11 +376,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "armada",
-    name: "Armada / The Duke",
-    color: "#6a9e30",
-    endgame: "crisis",
-    endgameLabel: "Dominance",
+    id: "armada", name: "Armada / The Duke", color: "#6a9e30",
     steps: [
       { n: 8, short: "Duke arrives as Armada's sole ruler", detail: "The Duke of Melk Y'Bongo arrives at the peace summit having consolidated Armada's city-states under his rule." },
       { n: 7, short: '"I have solved the piracy problem"', detail: "The Duke publicly announces he has solved the piracy problem in Armada — Dedra's imprisonment is imminent." },
@@ -535,11 +390,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "polaris",
-    name: "Polaris",
-    color: "#1f8c68",
-    endgame: "victory",
-    endgameLabel: "Open War",
+    id: "polaris", name: "Polaris", color: "#1f8c68",
     steps: [
       { n: 8, short: "Sacred Fungril sites confirmed as targets", detail: "Polaris confirms that Fungril sacred sites are being systematically targeted, not just villages." },
       { n: 7, short: "Battle mages deployed to guard sites", detail: "Polaris deploys battle mages to guard the remaining Fungril sacred sites." },
@@ -553,11 +404,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "jesthaen",
-    name: "Jesthaen",
-    color: "#b05030",
-    endgame: "crisis",
-    endgameLabel: "Coalition War",
+    id: "jesthaen", name: "Jesthaen", color: "#b05030",
     steps: [
       { n: 8, short: "Cloning confirmed, war hawks gain power", detail: "Jesthaen confirms Voldean attempted to clone their diplomat. War hawks gain influence at home." },
       { n: 7, short: "Clone intel shared with allies", detail: "Jesthaen quietly shares what they know about the clones with Polaris and Armada at the Duke's manor." },
@@ -571,11 +418,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "hilltop",
-    name: "Hilltop / Sirela",
-    color: "#8b2a2a",
-    endgame: "crisis",
-    endgameLabel: "Realm Sealed",
+    id: "hilltop", name: "Hilltop / Sirela", color: "#8b2a2a",
     steps: [
       { n: 8, short: "Remaining sacred sites mapped", detail: "Hilltop maps all remaining Fungril sacred sites and sequences the desecration ritual order." },
       { n: 7, short: "First desecration ritual complete", detail: "First remaining desecration ritual completed. Another Faerie realm connection goes permanently dark." },
@@ -589,11 +432,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "kostren",
-    name: "Lady Kostren",
-    color: "#9e6820",
-    endgame: "victory",
-    endgameLabel: "Hilltop Freed",
+    id: "kostren", name: "Lady Kostren", color: "#9e6820",
     steps: [
       { n: 8, short: "Kostren makes contact with the party", detail: "Kostren meets with the party, sharing what she knows about Sirela and the demonic conspiracy within Hilltop." },
       { n: 7, short: "Evidence secured from Sirela's ritual room", detail: "Kostren secures evidence from Sirela's ritual room with the party's help." },
@@ -607,11 +446,7 @@ const FACTIONS = [
     ]
   },
   {
-    id: "evelyn",
-    name: "Evelyn & the Faerie Realm",
-    color: "#5a3ab0",
-    endgame: "victory",
-    endgameLabel: "Powers Trapped",
+    id: "evelyn", name: "Evelyn & the Faerie Realm", color: "#5a3ab0",
     steps: [
       { n: 8, short: "Evelyn returns, weakened and healing", detail: "Evelyn returns to the Faerie realm, weakened from imprisonment. Begins healing and reconnecting with the realm's living network." },
       { n: 7, short: "The three deities convene", detail: "Evelyn, Moroko, and Thistlewick convene. Moroko reports sacred sites going dark. Thistlewick brings cryptic intelligence from the mortal world." },
@@ -626,20 +461,20 @@ const FACTIONS = [
   }
 ];
 
-const STORAGE_KEY = "fivebannersburn_v1";
-
-let state = { fear: 0, factions: {}, expanded: {} };
+const STORAGE_KEY = "fivebannersburn";
+let state = { fear: 0, factions: {}, expanded: {}, countdowns: [] };
 FACTIONS.forEach(f => { state.factions[f.id] = 8; state.expanded[f.id] = false; });
 
 function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      const parsed = JSON.parse(saved);
-      state.fear = parsed.fear ?? 0;
+      const p = JSON.parse(saved);
+      state.fear = p.fear ?? 0;
+      state.countdowns = p.countdowns ?? [];
       FACTIONS.forEach(f => {
-        if (parsed.factions && parsed.factions[f.id] !== undefined) state.factions[f.id] = parsed.factions[f.id];
-        if (parsed.expanded && parsed.expanded[f.id] !== undefined) state.expanded[f.id] = parsed.expanded[f.id];
+        if (p.factions && p.factions[f.id] !== undefined) state.factions[f.id] = p.factions[f.id];
+        if (p.expanded && p.expanded[f.id] !== undefined) state.expanded[f.id] = p.expanded[f.id];
       });
     }
   } catch(e) {}
@@ -651,24 +486,21 @@ function saveState() {
     const el = document.getElementById("lastSaved");
     if (el) {
       const now = new Date();
-      el.textContent = "Saved " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      el.textContent = "Saved " + now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }
   } catch(e) {}
 }
 
+// FEAR
 function adjustFear(delta) {
   state.fear = Math.max(0, Math.min(12, state.fear + delta));
-  renderFear();
-  saveState();
+  renderFear(); saveState();
 }
-
 function setFear(val) {
   state.fear = state.fear === val ? val - 1 : val;
   state.fear = Math.max(0, Math.min(12, state.fear));
-  renderFear();
-  saveState();
+  renderFear(); saveState();
 }
-
 function renderFear() {
   const v = state.fear;
   const num = document.getElementById("fearNumber");
@@ -679,21 +511,18 @@ function renderFear() {
   for (let i = 0; i < 12; i++) {
     const pip = document.createElement("div");
     const filled = i < v;
-    const danger = filled && v >= 9;
-    pip.className = "fear-pip" + (danger ? " danger-fill" : filled ? " filled" : "") + (i === 8 ? " fear-pip-9" : "");
-    pip.title = "Set fear to " + (i + 1);
+    pip.className = "fear-pip" + (filled && v >= 9 ? " danger-fill" : filled ? " filled" : "");
     pip.onclick = () => setFear(i + 1);
     pips.appendChild(pip);
   }
 }
 
+// FACTIONS
 function adjustStep(id, delta, e) {
   e.stopPropagation();
   state.factions[id] = Math.max(0, Math.min(8, state.factions[id] + delta));
-  updateFactionCard(id);
-  saveState();
+  updateFactionCard(id); saveState();
 }
-
 function toggleExpand(id) {
   state.expanded[id] = !state.expanded[id];
   const detail = document.getElementById("detail-" + id);
@@ -702,47 +531,34 @@ function toggleExpand(id) {
   if (chevron) chevron.classList.toggle("open", state.expanded[id]);
   saveState();
 }
-
-function updateFactionCard(id) {
-  const faction = FACTIONS.find(f => f.id === id);
-  const step = state.factions[id];
-  const stepData = faction.steps.find(s => s.n === step);
-  const pct = ((8 - step) / 8) * 100;
-
-  const card = document.getElementById("card-" + id);
-  if (!card) return;
-
-  card.querySelector(".faction-short").textContent = stepData.short;
-  card.querySelector(".step-num-display").textContent = step;
-  const bar = card.querySelector(".progress-fill");
-  bar.style.width = pct + "%";
-
-  const list = card.querySelector(".steps-list");
-  list.innerHTML = buildStepsHtml(faction, step);
-}
-
 function buildStepsHtml(faction, currentStep) {
   return faction.steps.map(s => {
     let cls = "step-row";
     if (s.n === currentStep) cls += " current";
     else if (s.n > currentStep) cls += " past";
-    return `<div class="${cls}">
-      <span class="step-n">${s.n}</span>
-      <span class="step-desc">${s.detail}</span>
-    </div>`;
+    return `<div class="${cls}"><span class="step-n">${s.n}</span><span class="step-desc">${s.detail}</span></div>`;
   }).join("");
 }
-
+function updateFactionCard(id) {
+  const faction = FACTIONS.find(f => f.id === id);
+  const step = state.factions[id];
+  const stepData = faction.steps.find(s => s.n === step);
+  const pct = ((8 - step) / 8) * 100;
+  const card = document.getElementById("card-" + id);
+  if (!card) return;
+  card.querySelector(".faction-short").textContent = stepData.short;
+  card.querySelector(".step-num-display").textContent = step;
+  card.querySelector(".progress-fill").style.width = pct + "%";
+  card.querySelector(".steps-list").innerHTML = buildStepsHtml(faction, step);
+}
 function buildFactionCard(faction) {
   const step = state.factions[faction.id];
   const stepData = faction.steps.find(s => s.n === step);
   const pct = ((8 - step) / 8) * 100;
   const isExpanded = state.expanded[faction.id];
-
   const card = document.createElement("div");
   card.className = "faction-card";
   card.id = "card-" + faction.id;
-
   card.innerHTML = `
     <div class="faction-header" onclick="toggleExpand('${faction.id}')">
       <div class="faction-sigil" style="background:${faction.color}"></div>
@@ -752,33 +568,129 @@ function buildFactionCard(faction) {
       </div>
       <div class="faction-right">
         <div class="step-counter">
-          <button class="step-ctrl" onclick="adjustStep('${faction.id}', 1, event)" title="Walk back">+</button>
-          <div>
-            <div class="step-num-display">${step}</div>
-            <div class="step-of">/ 8</div>
-          </div>
-          <button class="step-ctrl" onclick="adjustStep('${faction.id}', -1, event)" title="Advance">−</button>
+          <button class="step-ctrl" onclick="adjustStep('${faction.id}',1,event)" title="Walk back">+</button>
+          <div><div class="step-num-display">${step}</div><div class="step-of">/ 8</div></div>
+          <button class="step-ctrl" onclick="adjustStep('${faction.id}',-1,event)" title="Advance">−</button>
         </div>
-        <div class="expand-toggle${isExpanded ? ' open' : ''}" id="chevron-${faction.id}">▾</div>
+        <div class="expand-toggle${isExpanded?' open':''}" id="chevron-${faction.id}">▾</div>
       </div>
     </div>
-    <div class="progress-track">
-      <div class="progress-fill" style="width:${pct}%; background:${faction.color}"></div>
-    </div>
-    <div class="faction-detail${isExpanded ? ' open' : ''}" id="detail-${faction.id}">
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${faction.color}"></div></div>
+    <div class="faction-detail${isExpanded?' open':''}" id="detail-${faction.id}">
       <div class="steps-list">${buildStepsHtml(faction, step)}</div>
-    </div>
-  `;
-
+    </div>`;
   return card;
 }
 
+// SESSION COUNTDOWNS
+function rollDice(sides) {
+  const result = Math.floor(Math.random() * sides) + 1;
+  const input = document.getElementById("cdSteps");
+  input.value = Math.max(2, Math.min(20, result));
+  input.classList.add("dice-flash");
+  setTimeout(() => input.classList.remove("dice-flash"), 300);
+}
+
+function generateId() { return 'cd_' + Date.now() + '_' + Math.random().toString(36).slice(2,6); }
+
+function showForm() {
+  document.getElementById("newCountdownForm").classList.add("open");
+  document.getElementById("newCountdownTrigger").style.display = "none";
+  document.getElementById("cdName").focus();
+}
+function hideForm() {
+  document.getElementById("newCountdownForm").classList.remove("open");
+  document.getElementById("newCountdownTrigger").style.display = "flex";
+  document.getElementById("cdName").value = "";
+  document.getElementById("cdSteps").value = "5";
+}
+
+function addCountdown() {
+  const name = document.getElementById("cdName").value.trim();
+  const steps = parseInt(document.getElementById("cdSteps").value) || 5;
+  if (!name) { document.getElementById("cdName").focus(); return; }
+  const cd = { id: generateId(), name, max: Math.min(20, Math.max(2, steps)), current: Math.min(20, Math.max(2, steps)) };
+  state.countdowns.push(cd);
+  hideForm();
+  renderCountdowns();
+  saveState();
+}
+
+function adjustCountdown(id, delta) {
+  const cd = state.countdowns.find(c => c.id === id);
+  if (!cd) return;
+  cd.current = Math.max(0, Math.min(cd.max, cd.current + delta));
+  updateCountdownCard(id);
+  saveState();
+}
+
+function deleteCountdown(id) {
+  state.countdowns = state.countdowns.filter(c => c.id !== id);
+  renderCountdowns();
+  saveState();
+}
+
+function buildCountdownPips(cd) {
+  let html = '';
+  for (let i = 0; i < cd.max; i++) {
+    const filled = i < cd.current;
+    html += `<div class="countdown-pip${filled ? ' filled' : ''}"></div>`;
+  }
+  return html;
+}
+
+function updateCountdownCard(id) {
+  const cd = state.countdowns.find(c => c.id === id);
+  if (!cd) return;
+  const card = document.getElementById("cdcard-" + id);
+  if (!card) return;
+  card.querySelector(".countdown-value").textContent = cd.current;
+  card.querySelector(".countdown-pips").innerHTML = buildCountdownPips(cd);
+}
+
+function renderCountdowns() {
+  const list = document.getElementById("countdownsList");
+  list.innerHTML = "";
+  if (state.countdowns.length === 0) {
+    list.innerHTML = '<div class="empty-countdowns">No session countdowns yet</div>';
+    return;
+  }
+  state.countdowns.forEach(cd => {
+    const card = document.createElement("div");
+    card.className = "countdown-card";
+    card.id = "cdcard-" + cd.id;
+    card.innerHTML = `
+      <div class="countdown-accent"></div>
+      <div class="countdown-main">
+        <div class="countdown-name">${cd.name}</div>
+        <div class="countdown-pips">${buildCountdownPips(cd)}</div>
+      </div>
+      <div class="countdown-right">
+        <div class="step-counter">
+          <button class="step-ctrl" onclick="adjustCountdown('${cd.id}',1)" title="Increment">+</button>
+          <div><div class="countdown-value">${cd.current}</div><div class="countdown-max">/ ${cd.max}</div></div>
+          <button class="step-ctrl" onclick="adjustCountdown('${cd.id}',-1)" title="Decrement">−</button>
+        </div>
+        <button class="delete-btn" onclick="deleteCountdown('${cd.id}')" title="Remove">×</button>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+// Enter key in form
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("cdName").addEventListener("keydown", e => { if (e.key === "Enter") addCountdown(); });
+  document.getElementById("cdSteps").addEventListener("keydown", e => { if (e.key === "Enter") addCountdown(); });
+});
+
 function confirmReset() {
-  if (confirm("Reset all trackers to starting position?")) {
+  if (confirm("Reset all faction trackers and clear session countdowns?")) {
     state.fear = 0;
+    state.countdowns = [];
     FACTIONS.forEach(f => { state.factions[f.id] = 8; });
     renderFear();
     FACTIONS.forEach(f => updateFactionCard(f.id));
+    renderCountdowns();
     saveState();
   }
 }
@@ -786,8 +698,9 @@ function confirmReset() {
 function init() {
   loadState();
   renderFear();
-  const list = document.getElementById("factionsList");
-  FACTIONS.forEach(f => list.appendChild(buildFactionCard(f)));
+  const fl = document.getElementById("factionsList");
+  FACTIONS.forEach(f => fl.appendChild(buildFactionCard(f)));
+  renderCountdowns();
 }
 
 init();
