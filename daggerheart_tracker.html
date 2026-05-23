@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Five Banners Burning — Campaign Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0c0a;
+    --bg-card: #151210;
+    --bg-card-hover: #1a1714;
+    --bg-detail: #111009;
+    --border: rgba(180,150,90,0.15);
+    --border-hover: rgba(180,150,90,0.3);
+    --gold: #c9a84c;
+    --gold-dim: #8a6e2e;
+    --gold-bright: #e8c96a;
+    --text-primary: #e8dfc8;
+    --text-secondary: #9a8f7a;
+    --text-muted: #5a5245;
+    --red: #8b2a2a;
+    --red-bright: #c94040;
+    --fear-fill: #7a3ab5;
+    --fear-danger: #8b2a2a;
+    --progress-track: rgba(180,150,90,0.08);
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Crimson Pro', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(120,80,20,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(80,40,120,0.05) 0%, transparent 60%);
+  }
+
+  .app {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .header-eyebrow {
+    font-family: var(--font-display);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FEAR TRACKER */
+  .fear-section { margin-bottom: 2.5rem; }
+
+  .fear-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .fear-left { min-width: 100px; }
+
+  .fear-title {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .fear-value-display {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .fear-number {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .fear-number.danger { color: var(--red-bright); }
+
+  .fear-denom {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .fear-pips {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .fear-pip {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(180,150,90,0.2);
+    background: rgba(180,150,90,0.04);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    position: relative;
+  }
+
+  .fear-pip:hover { transform: scale(1.15); border-color: rgba(180,150,90,0.5); }
+  .fear-pip.filled { background: var(--fear-fill); border-color: #9b5dd4; }
+  .fear-pip.danger-fill { background: var(--fear-danger); border-color: #c94040; }
+
+  .fear-pip-9 { border-color: rgba(200,60,60,0.3); }
+
+  .fear-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ctrl-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: rgba(180,150,90,0.05);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    transition: background 0.1s, border-color 0.1s;
+    line-height: 1;
+  }
+
+  .ctrl-btn:hover { background: rgba(180,150,90,0.12); border-color: var(--gold-dim); }
+  .ctrl-btn:active { transform: scale(0.95); }
+
+  /* FACTION CARDS */
+  .factions-section { }
+  .factions-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .faction-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .faction-card:hover { border-color: var(--border-hover); }
+
+  .faction-header {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .faction-sigil {
+    width: 5px;
+    align-self: stretch;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+
+  .faction-main {
+    flex: 1;
+    padding: 12px 14px;
+    min-width: 0;
+  }
+
+  .faction-name {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 3px;
+  }
+
+  .faction-short {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+  }
+
+  .faction-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    flex-shrink: 0;
+  }
+
+  .step-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .step-num-display {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    min-width: 22px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .step-of {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .step-ctrl {
+    width: 26px;
+    height: 26px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: rgba(180,150,90,0.04);
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s;
+    flex-shrink: 0;
+  }
+
+  .step-ctrl:hover { background: rgba(180,150,90,0.1); color: var(--gold); border-color: var(--gold-dim); }
+  .step-ctrl:active { transform: scale(0.92); }
+
+  .expand-toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.25s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .expand-toggle.open { transform: rotate(180deg); color: var(--gold-dim); }
+
+  .progress-track {
+    height: 2px;
+    background: var(--progress-track);
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 2px;
+    transition: width 0.4s ease;
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 4px;
+    height: 6px;
+    background: inherit;
+    border-radius: 1px;
+    opacity: 0.8;
+  }
+
+  .faction-detail {
+    display: none;
+    background: var(--bg-detail);
+    border-top: 1px solid var(--border);
+    padding: 14px 16px 16px;
+  }
+
+  .faction-detail.open { display: block; }
+
+  .steps-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .step-row {
+    display: flex;
+    gap: 12px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    transition: background 0.15s;
+    align-items: flex-start;
+  }
+
+  .step-row:hover { background: rgba(180,150,90,0.04); }
+
+  .step-row.current {
+    background: rgba(180,150,90,0.07);
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 8px;
+  }
+
+  .step-n {
+    font-family: var(--font-display);
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 16px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .step-row.current .step-n { color: var(--gold); }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .step-row.current .step-desc { color: var(--text-primary); }
+
+  .step-row.past .step-n,
+  .step-row.past .step-desc {
+    opacity: 0.35;
+    text-decoration: line-through;
+    text-decoration-color: var(--text-muted);
+  }
+
+  /* ENDGAME BADGE */
+  .endgame-badge {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .endgame-badge.crisis { background: rgba(139,42,42,0.3); color: #e88; border: 1px solid rgba(200,60,60,0.3); }
+  .endgame-badge.victory { background: rgba(80,140,60,0.2); color: #8c8; border: 1px solid rgba(80,180,60,0.3); }
+
+  /* FOOTER */
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .reset-btn {
+    font-size: 11px;
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid rgba(180,150,90,0.1);
+    padding: 4px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .reset-btn:hover { color: var(--red-bright); border-color: rgba(200,60,60,0.3); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(180,150,90,0.2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(180,150,90,0.35); }
+
+  @media (max-width: 500px) {
+    .fear-card { flex-wrap: wrap; }
+    .fear-pips { order: 3; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="header-eyebrow">Campaign Tracker</div>
+    <h1>Five Banners Burning</h1>
+    <div class="header-sub">Session reference — factions &amp; fear</div>
+  </header>
+
+  <div class="fear-section">
+    <div class="section-label">Fear</div>
+    <div class="fear-card">
+      <div class="fear-left">
+        <div class="fear-title">Fear Pool</div>
+        <div class="fear-value-display">
+          <div class="fear-number" id="fearNumber">0</div>
+          <div class="fear-denom">/12</div>
+        </div>
+      </div>
+      <div class="fear-pips" id="fearPips"></div>
+      <div class="fear-btns">
+        <button class="ctrl-btn" onclick="adjustFear(1)" title="Add fear">+</button>
+        <button class="ctrl-btn" onclick="adjustFear(-1)" title="Remove fear">−</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="factions-section">
+    <div class="section-label">Faction Countdowns</div>
+    <div class="factions-list" id="factionsList"></div>
+  </div>
+
+  <footer>
+    <span id="lastSaved">State saved locally</span>
+    <button class="reset-btn" onclick="confirmReset()">Reset all</button>
+  </footer>
+</div>
+
+<script>
+const FACTIONS = [
+  {
+    id: "voldean",
+    name: "Voldean",
+    color: "#3a7abf",
+    endgame: "victory",
+    endgameLabel: "Reborn",
+    steps: [
+      { n: 8, short: "Fake King installed, shadow government begins", detail: "The Fake King is installed. Aldurin, Eris, and Fordo begin governing behind the scenes." },
+      { n: 7, short: "Aldurin stress-tests the Fake King", detail: "Aldurin runs the Fake King through increasingly complex political situations to assess long-term viability." },
+      { n: 6, short: "Corrupt nobles quietly purged", detail: "Aldurin begins quietly removing the most corrupt nobles from positions of influence." },
+      { n: 5, short: "Eris proposes a new governing charter", detail: "Eris proposes more rights and less imperial expansion. Internal debate begins within the shadow government." },
+      { n: 4, short: "Search for a legitimate successor begins", detail: "Aldurin begins discreetly vetting a real candidate to eventually replace the Fake King — someone who shares their vision for a better Voldean." },
+      { n: 3, short: "Back-channel diplomacy with Jesthaen", detail: "Voldean begins quietly repairing relations with Jesthaen through back-channel diplomacy." },
+      { n: 2, short: "Fake King replaced with legitimate ruler", detail: "The Fake King is replaced with a legitimate ruler aligned with their vision for a better Voldean." },
+      { n: 1, short: "Voldean renounces imperial claims", detail: "Voldean formally renounces its imperial ambitions — a seismic political act signaling the transformation is real." },
+      { n: 0, short: "Constitutional monarchy — or civil war", detail: "Voldean is reborn as a constitutional monarchy, abandoning expansionism — or collapses into civil war if the party hasn't stabilized things." },
+    ]
+  },
+  {
+    id: "armada",
+    name: "Armada / The Duke",
+    color: "#6a9e30",
+    endgame: "crisis",
+    endgameLabel: "Dominance",
+    steps: [
+      { n: 8, short: "Duke arrives as Armada's sole ruler", detail: "The Duke of Melk Y'Bongo arrives at the peace summit having consolidated Armada's city-states under his rule." },
+      { n: 7, short: '"I have solved the piracy problem"', detail: "The Duke publicly announces he has solved the piracy problem in Armada — Dedra's imprisonment is imminent." },
+      { n: 6, short: "Captain Dedra publicly imprisoned", detail: "Dedra, the last major rival in Armada, is neutralized. The Duke's consolidation of power is complete." },
+      { n: 5, short: "Clone knowledge weaponized at summit", detail: "The Duke uses his knowledge of Voldean's cloning program as political leverage at the summit." },
+      { n: 4, short: "Armada locks Voldean out economically", detail: "Armada signs trade agreements with Jesthaen and Polaris, isolating Voldean economically." },
+      { n: 3, short: "Clem branded a traitor", detail: "The Duke moves against Clem publicly — labels him a traitor and issues a bounty for his capture." },
+      { n: 2, short: "Armada builds a war fleet", detail: 'Armada begins building a war fleet, framed publicly as "protecting trade routes."' },
+      { n: 1, short: "Vathrix's influence can no longer be hidden", detail: "The Duke begins acting in ways that alarm even his allies — the primordial power driving him is becoming visible." },
+      { n: 0, short: "Armada dominant — the Duke becomes monstrous", detail: "Armada begins absorbing weaker states and threatens open war, with the Duke as its increasingly inhuman ruler." },
+    ]
+  },
+  {
+    id: "polaris",
+    name: "Polaris",
+    color: "#1f8c68",
+    endgame: "victory",
+    endgameLabel: "Open War",
+    steps: [
+      { n: 8, short: "Sacred Fungril sites confirmed as targets", detail: "Polaris confirms that Fungril sacred sites are being systematically targeted, not just villages." },
+      { n: 7, short: "Battle mages deployed to guard sites", detail: "Polaris deploys battle mages to guard the remaining Fungril sacred sites." },
+      { n: 6, short: "Faerie realm entities warned directly", detail: "Chantrelle makes direct contact with Faerie realm entities to warn them of the threat." },
+      { n: 5, short: "Evidence presented at summit", detail: "Polaris presents evidence of Hilltop's desecration rituals to other summit delegations." },
+      { n: 4, short: "Mutual protection agreement brokered", detail: "Polaris brokers a mutual protection agreement with Jesthaen and Armada against Hilltop aggression." },
+      { n: 3, short: "Method to detect/disrupt rituals developed", detail: "Polaris develops a method to detect or disrupt desecration rituals before they complete." },
+      { n: 2, short: "Stable Faerie bridge opened", detail: "Polaris opens a stable permanent bridge to the Faerie realm, securing their power source independently of the Fungrils." },
+      { n: 1, short: "Hilltop formally expelled from summit", detail: "Polaris moves to expel Hilltop from the summit and breaks off all diplomatic relations." },
+      { n: 0, short: "Open magical warfare against Hilltop", detail: "Polaris declares Hilltop a rogue state and begins open magical warfare." },
+    ]
+  },
+  {
+    id: "jesthaen",
+    name: "Jesthaen",
+    color: "#b05030",
+    endgame: "crisis",
+    endgameLabel: "Coalition War",
+    steps: [
+      { n: 8, short: "Cloning confirmed, war hawks gain power", detail: "Jesthaen confirms Voldean attempted to clone their diplomat. War hawks gain influence at home." },
+      { n: 7, short: "Clone intel shared with allies", detail: "Jesthaen quietly shares what they know about the clones with Polaris and Armada at the Duke's manor." },
+      { n: 6, short: "Assassination plot enters final planning", detail: "The assassination plot against the Fake King moves into final planning stages." },
+      { n: 5, short: "Troops mobilize along the border", detail: "Jesthaen troops visibly mobilize along the border — framed as defensive, but it's a clear threat." },
+      { n: 4, short: "Assassination attempt", detail: "The assassination attempt happens — it succeeds, fails, or is intercepted by the party." },
+      { n: 3, short: "Voldean formally accused at summit", detail: "Jesthaen formally accuses Voldean of kidnapping and cloning their diplomat at the summit." },
+      { n: 2, short: "Anti-Voldean coalition formed", detail: "Jesthaen rallies Polaris and Armada into a formal anti-Voldean coalition." },
+      { n: 1, short: "Ultimatum issued to Voldean", detail: "Jesthaen issues an ultimatum — reparations and autonomy guarantees, or war." },
+      { n: 0, short: "Coalition war begins — summit fails", detail: "Jesthaen leads a coalition war against Voldean. The peace summit has catastrophically failed." },
+    ]
+  },
+  {
+    id: "hilltop",
+    name: "Hilltop / Sirela",
+    color: "#8b2a2a",
+    endgame: "crisis",
+    endgameLabel: "Realm Sealed",
+    steps: [
+      { n: 8, short: "Remaining sacred sites mapped", detail: "Hilltop maps all remaining Fungril sacred sites and sequences the desecration ritual order." },
+      { n: 7, short: "First desecration ritual complete", detail: "First remaining desecration ritual completed. Another Faerie realm connection goes permanently dark." },
+      { n: 6, short: "Demonic portal network established", detail: "Sirela establishes a demonic portal network in Hilltop for future troop movement." },
+      { n: 5, short: "Second ritual complete — Polaris feels the drain", detail: "Second desecration ritual completed. Polaris begins to feel the power drain acutely." },
+      { n: 4, short: "Sirela moves against Lady Kostren", detail: "Sirela makes her move on Lady Kostren — silencing or discrediting her completely." },
+      { n: 3, short: "Third ritual — Faerie realm destabilizes", detail: "Third desecration ritual completed. The Faerie realm begins to visibly destabilize." },
+      { n: 2, short: "Hilltop severs alliance with Voldean", detail: "Hilltop formally severs its alliance with Voldean, revealing its true intentions to the world." },
+      { n: 1, short: "Final ritual begins — seal almost complete", detail: "The final desecration ritual begins. The Faerie realm seal is almost complete." },
+      { n: 0, short: "Faerie realm sealed — demons pour in", detail: "The Faerie realm is permanently sealed. Demons pour through Hilltop's portal network into the world." },
+    ]
+  },
+  {
+    id: "kostren",
+    name: "Lady Kostren",
+    color: "#9e6820",
+    endgame: "victory",
+    endgameLabel: "Hilltop Freed",
+    steps: [
+      { n: 8, short: "Kostren makes contact with the party", detail: "Kostren meets with the party, sharing what she knows about Sirela and the demonic conspiracy within Hilltop." },
+      { n: 7, short: "Evidence secured from Sirela's ritual room", detail: "Kostren secures evidence from Sirela's ritual room with the party's help." },
+      { n: 6, short: "Remaining Hilltop allies contacted", detail: "Kostren quietly reaches out to her remaining allies within Hilltop." },
+      { n: 5, short: "Evidence presented to Polaris or Aldurin", detail: "Kostren presents evidence of Sirela's demonic nature to a neutral party — Polaris or Aldurin." },
+      { n: 4, short: "Assassination attempt forces Kostren underground", detail: "An assassination attempt by HanThak forces Kostren to go into hiding." },
+      { n: 3, short: "Counter-faction begins organizing", detail: "Kostren's allies within Hilltop begin organizing a counter-faction against Sirela." },
+      { n: 2, short: "Kostren returns — direct challenge to Sirela", detail: "Kostren returns to Hilltop with evidence and backing, challenging Sirela's authority directly." },
+      { n: 1, short: "Power struggle erupts within Hilltop", detail: "An open power struggle breaks out within Hilltop between the two factions." },
+      { n: 0, short: "Kostren reclaims Hilltop — Sirela exposed", detail: "Kostren's faction reclaims Hilltop leadership. The demonic conspiracy is exposed and Sirela flees or is destroyed." },
+    ]
+  },
+  {
+    id: "evelyn",
+    name: "Evelyn & the Faerie Realm",
+    color: "#5a3ab0",
+    endgame: "victory",
+    endgameLabel: "Powers Trapped",
+    steps: [
+      { n: 8, short: "Evelyn returns, weakened and healing", detail: "Evelyn returns to the Faerie realm, weakened from imprisonment. Begins healing and reconnecting with the realm's living network." },
+      { n: 7, short: "The three deities convene", detail: "Evelyn, Moroko, and Thistlewick convene. Moroko reports sacred sites going dark. Thistlewick brings cryptic intelligence from the mortal world." },
+      { n: 6, short: "Trapping ritual sequence researched", detail: "Evelyn begins researching and preparing the ritual sequence needed to trap the primordial powers. She knows how the gods originally did it." },
+      { n: 5, short: "Realm stabilized at the core", detail: "The realm shows instability — unpredictable portals, restless spirits. Evelyn stabilizes the core while the outer edges remain vulnerable." },
+      { n: 4, short: "Moroko patrols the borders", detail: "Moroko begins actively patrolling the borders between realms, hunting whatever is severing the sacred site connections." },
+      { n: 3, short: "Thistlewick's meddling produces something useful", detail: "Thistlewick's chaotic meddling in the mortal world accidentally produces something genuinely useful — a disruption to Hilltop's plans or an unexpected ally." },
+      { n: 2, short: "Primordial vessels identified", detail: "Evelyn identifies the mortal vessels through which the primordial powers are operating — the Duke, Sirela, and others." },
+      { n: 1, short: "Three deities unified — ritual ready", detail: "The three deities are unified in purpose. Evelyn is strong enough to attempt the trapping ritual — but needs help from the mortal side." },
+      { n: 0, short: "Primordial powers trapped — the realm restored", detail: "The primordial powers of chaos are trapped. The Faerie realm is restored to sanctuary. The demonic threat is broken — if the party has done their part." },
+    ]
+  }
+];
+
+const STORAGE_KEY = "fivebannersburn_v1";
+
+let state = { fear: 0, factions: {}, expanded: {} };
+FACTIONS.forEach(f => { state.factions[f.id] = 8; state.expanded[f.id] = false; });
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state.fear = parsed.fear ?? 0;
+      FACTIONS.forEach(f => {
+        if (parsed.factions && parsed.factions[f.id] !== undefined) state.factions[f.id] = parsed.factions[f.id];
+        if (parsed.expanded && parsed.expanded[f.id] !== undefined) state.expanded[f.id] = parsed.expanded[f.id];
+      });
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    const el = document.getElementById("lastSaved");
+    if (el) {
+      const now = new Date();
+      el.textContent = "Saved " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+  } catch(e) {}
+}
+
+function adjustFear(delta) {
+  state.fear = Math.max(0, Math.min(12, state.fear + delta));
+  renderFear();
+  saveState();
+}
+
+function setFear(val) {
+  state.fear = state.fear === val ? val - 1 : val;
+  state.fear = Math.max(0, Math.min(12, state.fear));
+  renderFear();
+  saveState();
+}
+
+function renderFear() {
+  const v = state.fear;
+  const num = document.getElementById("fearNumber");
+  num.textContent = v;
+  num.className = "fear-number" + (v >= 9 ? " danger" : "");
+  const pips = document.getElementById("fearPips");
+  pips.innerHTML = "";
+  for (let i = 0; i < 12; i++) {
+    const pip = document.createElement("div");
+    const filled = i < v;
+    const danger = filled && v >= 9;
+    pip.className = "fear-pip" + (danger ? " danger-fill" : filled ? " filled" : "") + (i === 8 ? " fear-pip-9" : "");
+    pip.title = "Set fear to " + (i + 1);
+    pip.onclick = () => setFear(i + 1);
+    pips.appendChild(pip);
+  }
+}
+
+function adjustStep(id, delta, e) {
+  e.stopPropagation();
+  state.factions[id] = Math.max(0, Math.min(8, state.factions[id] + delta));
+  updateFactionCard(id);
+  saveState();
+}
+
+function toggleExpand(id) {
+  state.expanded[id] = !state.expanded[id];
+  const detail = document.getElementById("detail-" + id);
+  const chevron = document.getElementById("chevron-" + id);
+  if (detail) detail.classList.toggle("open", state.expanded[id]);
+  if (chevron) chevron.classList.toggle("open", state.expanded[id]);
+  saveState();
+}
+
+function updateFactionCard(id) {
+  const faction = FACTIONS.find(f => f.id === id);
+  const step = state.factions[id];
+  const stepData = faction.steps.find(s => s.n === step);
+  const pct = ((8 - step) / 8) * 100;
+
+  const card = document.getElementById("card-" + id);
+  if (!card) return;
+
+  card.querySelector(".faction-short").textContent = stepData.short;
+  card.querySelector(".step-num-display").textContent = step;
+  const bar = card.querySelector(".progress-fill");
+  bar.style.width = pct + "%";
+
+  const list = card.querySelector(".steps-list");
+  list.innerHTML = buildStepsHtml(faction, step);
+}
+
+function buildStepsHtml(faction, currentStep) {
+  return faction.steps.map(s => {
+    let cls = "step-row";
+    if (s.n === currentStep) cls += " current";
+    else if (s.n > currentStep) cls += " past";
+    return `<div class="${cls}">
+      <span class="step-n">${s.n}</span>
+      <span class="step-desc">${s.detail}</span>
+    </div>`;
+  }).join("");
+}
+
+function buildFactionCard(faction) {
+  const step = state.factions[faction.id];
+  const stepData = faction.steps.find(s => s.n === step);
+  const pct = ((8 - step) / 8) * 100;
+  const isExpanded = state.expanded[faction.id];
+
+  const card = document.createElement("div");
+  card.className = "faction-card";
+  card.id = "card-" + faction.id;
+
+  card.innerHTML = `
+    <div class="faction-header" onclick="toggleExpand('${faction.id}')">
+      <div class="faction-sigil" style="background:${faction.color}"></div>
+      <div class="faction-main">
+        <div class="faction-name">${faction.name}</div>
+        <div class="faction-short">${stepData.short}</div>
+      </div>
+      <div class="faction-right">
+        <div class="step-counter">
+          <button class="step-ctrl" onclick="adjustStep('${faction.id}', 1, event)" title="Walk back">+</button>
+          <div>
+            <div class="step-num-display">${step}</div>
+            <div class="step-of">/ 8</div>
+          </div>
+          <button class="step-ctrl" onclick="adjustStep('${faction.id}', -1, event)" title="Advance">−</button>
+        </div>
+        <div class="expand-toggle${isExpanded ? ' open' : ''}" id="chevron-${faction.id}">▾</div>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" style="width:${pct}%; background:${faction.color}"></div>
+    </div>
+    <div class="faction-detail${isExpanded ? ' open' : ''}" id="detail-${faction.id}">
+      <div class="steps-list">${buildStepsHtml(faction, step)}</div>
+    </div>
+  `;
+
+  return card;
+}
+
+function confirmReset() {
+  if (confirm("Reset all trackers to starting position?")) {
+    state.fear = 0;
+    FACTIONS.forEach(f => { state.factions[f.id] = 8; });
+    renderFear();
+    FACTIONS.forEach(f => updateFactionCard(f.id));
+    saveState();
+  }
+}
+
+function init() {
+  loadState();
+  renderFear();
+  const list = document.getElementById("factionsList");
+  FACTIONS.forEach(f => list.appendChild(buildFactionCard(f)));
+}
+
+init();
+</script>
+</body>
+</html>
