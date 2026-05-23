@@ -36,7 +36,7 @@
     background: var(--bg);
     color: var(--text-primary);
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
     min-height: 100vh;
     background-image:
@@ -119,7 +119,7 @@
   .faction-sigil { width: 5px; align-self: stretch; flex-shrink: 0; }
   .faction-main { flex: 1; padding: 12px 14px; min-width: 0; }
   .faction-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px; }
-  .faction-short { font-size: 13px; color: var(--text-secondary); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+  .faction-short { font-size: 14px; color: var(--text-secondary); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
   .faction-right { display: flex; align-items: center; gap: 10px; padding: 12px 14px; flex-shrink: 0; }
   .step-counter { display: flex; align-items: center; gap: 8px; }
   .step-num-display { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--text-primary); min-width: 22px; text-align: center; line-height: 1; }
@@ -144,7 +144,7 @@
   .step-row.current { background: rgba(180,150,90,0.07); border-left: 2px solid var(--gold-dim); padding-left: 8px; }
   .step-n { font-family: var(--font-display); font-size: 11px; color: var(--text-muted); min-width: 16px; flex-shrink: 0; padding-top: 2px; }
   .step-row.current .step-n { color: var(--gold); }
-  .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .step-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
   .step-row.current .step-desc { color: var(--text-primary); }
   .step-row.past .step-n, .step-row.past .step-desc { opacity: 0.35; text-decoration: line-through; text-decoration-color: var(--text-muted); }
 
@@ -162,7 +162,7 @@
   .countdown-accent { width: 5px; align-self: stretch; flex-shrink: 0; background: var(--gold-dim); opacity: 0.5; }
 
   .countdown-main { flex: 1; padding: 10px 14px; min-width: 0; }
-  .countdown-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--text-primary); }
+  .countdown-name { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.08em; color: var(--text-primary); }
 
   .countdown-pips { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
   .countdown-pip {
@@ -181,7 +181,7 @@
   .delete-btn {
     width: 24px; height: 24px; border-radius: 2px;
     border: 1px solid transparent; background: none;
-    color: var(--text-muted); font-size: 16px; cursor: pointer;
+    color: var(--text-muted); font-size: 17px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.15s; margin-left: 4px; line-height: 1;
   }
@@ -252,7 +252,7 @@
     width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .new-countdown-trigger:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(180,150,90,0.04); }
-  .new-countdown-trigger .plus { font-size: 16px; line-height: 1; }
+  .new-countdown-trigger .plus { font-size: 17px; line-height: 1; }
 
   /* EMPTY STATE */
   .empty-countdowns {
@@ -299,7 +299,7 @@
   .npc-name-line { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
   .npc-name { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--gold); }
   .npc-ancestry { font-size: 11px; color: var(--text-muted); font-style: italic; }
-  .npc-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+  .npc-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.45; }
   .npc-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
   .npc-section-header .section-label { margin-bottom: 0; flex: 1; }
   .npc-clear-btn {
@@ -454,16 +454,15 @@ const FACTIONS = [
   {
     id: "hilltop", name: "Hilltop / Sirela", color: "#8b2a2a",
     steps: [
-      { n: 8, short: "Remaining sacred sites mapped", detail: "Hilltop maps all remaining Fungril sacred sites and sequences the desecration ritual order." },
-      { n: 7, short: "First desecration ritual complete", detail: "First remaining desecration ritual completed. Another Faerie realm connection goes permanently dark." },
-      { n: 6, short: "Demonic portal network established", detail: "Sirela establishes a demonic portal network in Hilltop for future troop movement." },
-      { n: 5, short: "Second ritual complete — Polaris feels the drain", detail: "Second desecration ritual completed. Polaris begins to feel the power drain acutely." },
-      { n: 4, short: "Sirela moves against Lady Kostren", detail: "Sirela makes her move on Lady Kostren — silencing or discrediting her completely." },
-      { n: 3, short: "Third ritual — Faerie realm destabilizes", detail: "Third desecration ritual completed. The Faerie realm begins to visibly destabilize." },
-      { n: 2, short: "Hilltop severs alliance with Voldean", detail: "Hilltop formally severs its alliance with Voldean, revealing its true intentions to the world." },
-      { n: 1, short: "Final ritual begins — seal almost complete", detail: "The final desecration ritual begins. The Faerie realm seal is almost complete." },
-      { n: 0, short: "Faerie realm sealed — demons pour in", detail: "The Faerie realm is permanently sealed. Demons pour through Hilltop's portal network into the world." },
-    ]
+      { n: 8, short: "Ritual sites identified — one per Faerie deity", detail: "Sirela identifies the three remaining ritual sites, one connected to each Faerie deity." },
+      { n: 7, short: "Reincantos clear Evelyn's site — spirit corruption begins near Royal City", detail: "The Reincantos clear out the Fungrils near Site 1 (Evelyn's site). Spirits near the Royal City begin to show signs of corruption." },
+      { n: 6, short: "Ritual at Site 1 complete — Evelyn weakens, spirit corruption spreads", detail: "Sirela performs the ritual at Site 1. Evelyn weakens. Spirit corruption spreads noticeably." },
+      { n: 5, short: "Reincantos clear Moroko's site", detail: "The Reincantos clear out the Fungrils near Site 2 (Moroko's site)." },
+      { n: 4, short: "Ritual at Site 2 complete — Moroko weakens, Spectralon overwhelmed", detail: "Sirela performs the ritual at Site 2. Moroko weakens. Spirit corruption accelerates — Spectralon is overwhelmed." },
+      { n: 3, short: "Reincantos clear Thistlewick's site", detail: "The Reincantos clear out the Fungrils near Site 3 (Thistlewick's site)." },
+      { n: 2, short: "Ritual at Site 3 complete — Faerie realm begins to collapse", detail: "Sirela performs the ritual at Site 3. The Faerie realm begins to collapse. The dead cannot rest." },
+      { n: 1, short: "Final severing ritual complete — the Faerie realm is dying", detail: "Sirela completes the final severing ritual. The Faerie realm is dying. Evelyn has one chance to stop it." },
+      { n: 0, short: "Faerie realm destroyed — the world loses something it can never get back", detail: "The Faerie realm is destroyed. Evelyn, Moroko, and Thistlewick are gone. The old gods do not return. The boundary between life and death collapses. The world loses something it can never get back." },    ]
   },
   {
     id: "kostren", name: "Lady Kostren", color: "#9e6820",
@@ -1017,5 +1016,7 @@ init();
 </script>
 </body>
 </html>
+
+
 
 
